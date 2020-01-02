@@ -11,12 +11,12 @@ if( !defined( '_JEXEC' ) && !defined( '_VALID_MOS' ) ) die( 'Restricted access' 
  * Version 1.1 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
  * http://www.mozilla.org/MPL/
- * 
+ *
  * Software distributed under the License is distributed on an "AS IS"
  * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
  * License for the specific language governing rights and limitations
  * under the License.
- * 
+ *
  * Alternatively, the contents of this file may be used under the terms
  * of the GNU General Public License Version 2 or later (the "GPL"), in
  * which case the provisions of the GPL are applicable instead of
@@ -27,7 +27,7 @@ if( !defined( '_JEXEC' ) && !defined( '_VALID_MOS' ) ) die( 'Restricted access' 
  * other provisions required by the GPL.  If you do not delete
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the GPL."
- * 
+ *
 */
 
 /**
@@ -75,12 +75,12 @@ function ext_init(){
     });
     datastore.paramNames["dir"] = "direction";
     datastore.paramNames["sort"] = "order";
-    
+
     datastore.on("beforeload", function(ds, options) {
     								options.params.dir = options.params.dir ? options.params.dir : ds.directory;
     								options.params.option = "com_extplorer";
     								options.params.action = "getdircontents";
-    								options.params.sendWhat = datastore.sendWhat;    								
+    								options.params.sendWhat = datastore.sendWhat;
     								}
     							 );
 
@@ -222,11 +222,11 @@ function ext_init(){
                               		tooltip: '<?php echo ext_Lang::msg('uploadlink', true ) ?>',
                               		cls:'x-btn-icon',
                               		disabled: <?php echo $allow && ini_get('file_uploads') ? 'false' : 'true' ?>,
-                              		handler: function() { 
+                              		handler: function() {
                                   		Ext.ux.OnDemandLoad.load("<?php echo _EXT_URL ?>/scripts/extjs3-ext/ux.swfupload/SwfUploadPanel.css");
                               			Ext.ux.OnDemandLoad.load("<?php echo _EXT_URL ?>/scripts/extjs3-ext/ux.swfupload/SwfUpload.js" );
                               			Ext.ux.OnDemandLoad.load("<?php echo _EXT_URL ?>/scripts/extjs3-ext/ux.swfupload/SwfUploadPanel.js",
-                              		    	function(options) { openActionDialog(this, 'upload'); }); 
+                              		    	function(options) { openActionDialog(this, 'upload'); });
                           		    }
                               	},
                               	{
@@ -267,7 +267,7 @@ function ext_init(){
                           		if(!empty($GLOBALS["require_login"])) {
                           			$admin=(($GLOBALS["permissions"]&4)==4);
                           			if($admin) {
-                          		
+
                           			?>
                           	    	{	// ADMIN
                           	    		xtype: "tbbutton",
@@ -287,16 +287,16 @@ function ext_init(){
                           	    		tooltip: '<?php echo ext_Lang::msg('logoutlink', true ) ?>',
                           	    		cls:'x-btn-icon',
                           	    		handler: function() { document.location.href='<?php echo ext_make_link('logout', null ) ?>'; }
-                          	    	},		
+                          	    	},
                           	    	'-',
                           			<?php
                           		}
-                          		?>		
+                          		?>
                             	new Ext.Toolbar.Button( {
                             		text: '<?php echo ext_Lang::msg('show_directories', true ) ?>',
                             		enableToggle: true,
                             		pressed: true,
-                            		handler: function(btn,e) { 
+                            		handler: function(btn,e) {
                             					if( btn.pressed ) {
                             						datastore.sendWhat= 'both';
                             						loadDir();
@@ -306,13 +306,13 @@ function ext_init(){
                             					}
                             			}
                             	}), '-',
-                            	new Ext.form.TextField( { 
-                                	name: "filterValue", 
+                            	new Ext.form.TextField( {
+                                	name: "filterValue",
                                 	id: "filterField",
                                 	enableKeyEvents: true,
                                     emptyText: "<?php echo ext_Lang::msg('filter_grid', true ) ?>",
                                 	title: "<?php echo ext_Lang::msg('filter_grid', true ) ?>",
-                            		listeners: { 
+                            		listeners: {
                             			keypress: { fn: 	function(textfield, e ) {
 					                            		    	if( e.getKey() == Ext.EventObject.ENTER ) {
                                                                     datastore.baseParams.searchword = Ext.getCmp("filterField").getValue();
@@ -371,7 +371,7 @@ function ext_init(){
                                 })
 
                             ]);
-    function filterDataStore(btn,e) { 
+    function filterDataStore(btn,e) {
 		var filterVal = Ext.getCmp("filterField").getValue();
 		if( filterVal.length > 1 ) {
 			datastore.filter( 'name', eval('/'+filterVal+'/gi') );
@@ -399,7 +399,7 @@ function ext_init(){
 			    id: 'statusPanel'
 			})]
     });
-    
+
     // the column model has information about grid columns
     // dataIndex maps the column to the specific data field in
     // the data store
@@ -442,7 +442,7 @@ function ext_init(){
            dataIndex: 'owner',
            width: 100,
            sortable: false
-        }, 
+        },
         { dataIndex: 'is_deletable', header: "is_deletable", hidden: true, hideable: false },
         {dataIndex: 'is_file', hidden: true, hideable: false },
         {dataIndex: 'is_archive', hidden: true, hideable: false },
@@ -459,7 +459,7 @@ function ext_init(){
 
     // Unregister the default double click action (which makes the name field editable - we want this when the user clicks "Rename" in the menu)
     //ext_itemgrid.un('celldblclick', ext_itemgrid.onCellDblClick);
-    
+
     function handleRowClick(sm, rowIndex) {
     	var selections = sm.getSelections();
     	tb = ext_itemgrid.getTopToolbar();
@@ -493,11 +493,11 @@ function ext_init(){
     	}
     	return true;
     }
-    
+
     // The Quicktips are used for the toolbar and Tree mouseover tooltips!
 	Ext.QuickTips.init();
-	
-    
+
+
     // trigger the data store load
     function loadDir() {
     	datastore.load({params:{start:0, limit:150, dir: datastore.directory, option:'com_extplorer', action:'getdircontents', sendWhat: datastore.sendWhat }});
@@ -540,35 +540,21 @@ function ext_init(){
 
 
     function customContextMenuFor(selections) {
-        if(selections.find(isTxtFile)) {
-            customTxtCtxMenu = new Ext.menu.Menu({
-                id: 'customTxtCtxMenu',
+        if(selections.find(isFittFile)) {
+            customFittCtxMenu = new Ext.menu.Menu({
+                id: 'customFittCtxMenu',
                 items: [{
                     id: 'gc_customOption1',
                     icon: '',
-                    text: 'CustomOption1',
+                    text: 'Run pipeline',
                     handler: function() {}
                 }]
             });
-            return customTxtCtxMenu;
-        } else if(selections.find(isPhpFile)) {
-            customPhpCtxMenu = new Ext.menu.Menu({
-                id: 'customPhpCtxMenu',
-                items: [{
-                    id: 'gc_customOption2',
-                    icon: '',
-                    text: 'CustomOption2',
-                    handler: function() {}
-                }]
-            });
-            return customPhpCtxMenu;
+            return customFittCtxMenu;
         }
 
-        function isPhpFile(selection) {
-            return selection.data.name.endsWith(".php")
-        }
-        function isTxtFile(selection) {
-            return selection.data.name.endsWith(".txt")
+        function isFittFile(selection) {
+            return selection.data.name.endsWith(".fitt")
         }
         return gridCtxMenu;
     }
@@ -576,7 +562,7 @@ function ext_init(){
 
     gridCtxMenu = new Ext.menu.Menu({
     	id:'gridCtxMenu',
-    
+
         items: [{
     		id: 'gc_edit',
     		icon: '<?php echo _EXT_URL ?>/images/_edit.png',
@@ -656,22 +642,22 @@ function ext_init(){
     	}
     	]
     });
-    	
+
 	function dirContext(node, e ) {
 		// Select the node that was right clicked
 		node.select();
 		// Unselect all files in the grid
 		ext_itemgrid.getSelectionModel().clearSelections();
-		
+
 		dirCtxMenu.items.get('dirCtxMenu_rename')[node.attributes.is_deletable ? 'enable' : 'disable']();
 		dirCtxMenu.items.get('dirCtxMenu_remove')[node.attributes.is_deletable ? 'enable' : 'disable']();
 		dirCtxMenu.items.get('dirCtxMenu_chmod')[node.attributes.is_chmodable ? 'enable' : 'disable']();
-		
+
 		dirCtxMenu.node = node;
 		dirCtxMenu.show(e.getTarget(), 't-b?' );
-		
+
 	}
-	
+
     function copymove( action ) {
 	    var s = dropEvent.data.selections, r = [];
 		if( s ) {
@@ -748,7 +734,7 @@ function ext_init(){
     		text: '<?php echo ext_Lang::msg('reloadlink', true ) ?>',
     		handler: function() { dirCtxMenu.hide();dirCtxMenu.node.reload(); }
     	},
-    	'-', 
+    	'-',
 		{
 			id: 'dirCtxMenu_cancel',
     		icon: '<?php echo _EXT_URL ?>/images/_cancel.png',
@@ -770,7 +756,7 @@ function ext_init(){
     		icon: '<?php echo _EXT_URL ?>/images/_move.png',
     		text: '<?php echo ext_Lang::msg('movelink', true ) ?>',
     		handler: function() { copymoveCtxMenu.hide();copymove('move'); }
-    	},'-', 
+    	},'-',
 		{
 			id: 'copymoveCtxMenu_cancel',
     		icon: '<?php echo _EXT_URL ?>/images/_cancel.png',
@@ -784,9 +770,9 @@ function ext_init(){
         //ctxMenu.items.get('remove')[node.attributes.allowDelete ? 'enable' : 'disable']();
         copymoveCtxMenu.showAt(e.rawEvent.getXY());
     }
-    
+
 	// Hide the Admin Menu under Joomla! 1.5
-	try{ 
+	try{
     	Ext.fly('header-box').hide();Ext.fly('border-top').hide();
 	} catch(e) {}
 	// Hide the Admin Menu under Joomla! 1.0
@@ -801,7 +787,7 @@ function ext_init(){
 		header = Ext.query('header'); Ext.get(header).hide();
 		Ext.get('status').hide();
 	} catch(e) {}
-	
+
 	var viewport = new Ext.Viewport({
 	    layout:'border',
 	    defaults: {
@@ -817,12 +803,12 @@ function ext_init(){
             xtype: "treepanel",
             region: "west",
         	id: "dirTree",
-        	title: '<?php echo ext_Lang::msg('directory_tree', true ) ?> <img src="<?php echo _EXT_URL ?>/images/_reload.png" hspace="20" style="cursor:pointer;" title="reload" onclick="Ext.getCmp(\'dirTree\').getRootNode().reload();" alt="Reload" align="middle" />', 
+        	title: '<?php echo ext_Lang::msg('directory_tree', true ) ?> <img src="<?php echo _EXT_URL ?>/images/_reload.png" hspace="20" style="cursor:pointer;" title="reload" onclick="Ext.getCmp(\'dirTree\').getRootNode().reload();" alt="Reload" align="middle" />',
         	closable: false,
             width: 230,
             titlebar: true,
             autoScroll:true,
-    	    animate:true, 
+    	    animate:true,
     	    //rootVisible: false,
     	    loader: new Ext.tree.TreeLoader({
     	    	preloadChildren: true,
@@ -847,7 +833,7 @@ function ext_init(){
     	    enableDD:true,
     	    ddGroup : 'TreeDD',
         	listeners: {
-            	//"load": { fn: function(node) { chDir( node.id.replace( /_RRR_/g, '/' ), true ); } }, 
+            	//"load": { fn: function(node) { chDir( node.id.replace( /_RRR_/g, '/' ), true ); } },
         		'contextmenu': { fn: dirContext },
     			'textchange': { fn: function(node, text, oldText) {
     						if( text == oldText ) return true;
@@ -857,13 +843,13 @@ function ext_init(){
     						requestParams.dir = dir;
     						requestParams.newitemname = text;
     						requestParams.item = oldText;
-    						
+
     						requestParams.confirm = 'true';
     						requestParams.action = 'rename';
     						handleCallback(requestParams);
     						ext_itemgrid.stopEditing();
     						return true;
-    					}	
+    					}
         		},
         		'beforenodedrop': { fn: function(e){
     						    	    	dropEvent = e;
@@ -873,8 +859,8 @@ function ext_init(){
         		'beforemove': { fn: function() { return false; } }
         	},
         	root: new Ext.tree.AsyncTreeNode({
-                text: '/', 
-                draggable:false, 
+                text: '/',
+                draggable:false,
                 expanded: true,
                 id:'ext_root',
                 listeners: {
@@ -924,13 +910,13 @@ function ext_init(){
 		                    ctrl: true,
 		                    stopEvent: true,
 		                    handler: function() { openActionDialog(this, 'copy'); }
-		                   
+
 		               },{
 		                    key: 'x',
 		                    ctrl: true,
 		                    stopEvent: true,
 		                    handler: function() { openActionDialog(this, 'move'); }
-		                   
+
 		               },{
 		                 key: 'a',
 		                 ctrl: true,
@@ -938,15 +924,15 @@ function ext_init(){
 		                 handler: function() {
 		            		ext_itemgrid.getSelectionModel().selectAll();
 		                 }
-		            }, 
+		            },
 		            {
 		            	key: Ext.EventObject.DELETE,
 		            	handler: function() { openActionDialog(this, 'delete'); }
 		            }
 		            ],
 		        	listeners: { 'rowcontextmenu': { fn: rowContextMenu },
-		        			'celldblclick': { fn: function( grid, rowIndex, columnIndex, e ) { 
-	        										if( Ext.isOpera ) { 
+		        			'celldblclick': { fn: function( grid, rowIndex, columnIndex, e ) {
+	        										if( Ext.isOpera ) {
 	            										// because Opera <= 9 doesn't support the right-mouse-button-clicked event (contextmenu)
 	            										// we need to simulate it using the ondblclick event
 														rowContextMenu( grid, rowIndex, e );
@@ -969,13 +955,13 @@ function ext_init(){
 		    						var requestParams = getRequestParams();
 		    						requestParams.newitemname = e.value;
 		    						requestParams.item = e.originalValue;
-		    						
+
 		    						requestParams.confirm = 'true';
 		    						requestParams.action = 'rename';
 		    						handleCallback(requestParams);
 		    						return true;
-		    					}	
-		        			}        			
+		    					}
+		        			}
 	        			}
 		        	}]
             	}]
@@ -1001,16 +987,16 @@ function ext_init(){
 
                             var tsm = Ext.getCmp("dirTree").getSelectionModel();
                             tsm.on('selectionchange', handleNodeClick );
-	        			    
+
 	        			    // create the editor for the directory tree
 	        			    var dirTreeEd = new Ext.tree.TreeEditor(Ext.getCmp("dirTree"), {
 	        			        allowBlank:false,
 	        			        blankText:'A name is required',
 	        			        selectOnFocus:true
-	        			    });							
+	        			    });
 
 	        				chDir( '<?php echo str_replace("'", "\'", $dir ) ?>' );
-							
+
 	    				}
 	    			}
 		}
@@ -1018,7 +1004,7 @@ function ext_init(){
 	Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
 	    expires: new Date(new Date().getTime()+(1000*60*60*24*7)) //7 days from now
 	}));
-		
+
     <?php
     if( $GLOBALS['require_login'] && $GLOBALS['mainframe']->getUserName() == 'admin' && ($GLOBALS['mainframe']->getPassword() == extEncodePassword('admin') || $GLOBALS['mainframe']->getPassword() == md5('admin'))) {
     	// Urge User to change admin password!
@@ -1028,7 +1014,7 @@ function ext_init(){
     	msgbox.setIcon(Ext.MessageBox.WARNING);
 		';
     }
-    ?>    
+    ?>
 }
 if( typeof Ext == 'undefined' ) {
 	document.location = '<?php echo basename( $GLOBALS['script_name']) ?>?option=com_extplorer&nofetchscript=1';
