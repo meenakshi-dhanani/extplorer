@@ -793,13 +793,16 @@ function ext_init(){
 	    defaults: {
 	        split: true
 	    },
-	    items:[{
-	        region:"north",
-            initialSize: 50,
-            titlebar: false,
-            closable: false,
-            contentEl: "ext_header"
-        },{
+	    items:[
+	    //    {
+	    //    region:"north",
+        //    initialSize: 50,
+        //    titlebar: false,
+        //    closable: false,
+        //    contentEl: "ext_header"
+        //}
+//        ,
+{
             xtype: "treepanel",
             region: "west",
         	id: "dirTree",
