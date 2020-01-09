@@ -90,7 +90,7 @@ require_once(_EXT_PATH . '/include/functions.php');
 // check if we need login
 	if ( !ext_isjoomla() ) {
 		// login to use eXtplorer: (true/false)
-		$GLOBALS["require_login"] = true;
+		$GLOBALS["require_login"] = false;
 	} else {
 		$GLOBALS["require_login"] = false;
 	}
