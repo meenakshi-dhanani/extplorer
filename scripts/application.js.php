@@ -547,7 +547,9 @@ function ext_init(){
                     id: 'gc_customOption1',
                     icon: '',
                     text: 'Run pipeline',
-                    handler: function() {}
+                    handler: function() {
+                        Ext.Msg.alert('Notification', 'Pipeline instance initiated', Ext.emptyFn);
+                    }
                 }]
             });
             return customFittCtxMenu;
