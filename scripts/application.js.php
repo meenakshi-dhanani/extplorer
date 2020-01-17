@@ -546,9 +546,9 @@ function ext_init(){
                 items: [{
                     id: 'gc_customOption1',
                     icon: '',
-                    text: 'Run pipeline',
+                    text: 'Run pipeline for analysis',
                     handler: function() {
-                        Ext.Msg.alert('Notification', 'Pipeline instance initiated', Ext.emptyFn);
+                        Ext.Msg.alert('Notification', 'Pipeline instance initiated. Check Feed Viewer for detailed analysis of feed', Ext.emptyFn);
                     }
                 }]
             });
@@ -556,7 +556,7 @@ function ext_init(){
         }
 
         function isFittFile(selection) {
-            return selection.data.name.endsWith(".fitt")
+            return selection.data.name.endsWith(".FITS")
         }
         return gridCtxMenu;
     }
